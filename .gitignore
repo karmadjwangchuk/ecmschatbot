@@ -1,2 +1,4 @@
 # Flask/Python specific
 config.py
+
+__pycache__/

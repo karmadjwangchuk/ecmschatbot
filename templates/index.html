@@ -410,8 +410,34 @@
             };
 
             recognition.onerror = function(event) {
-                console.error('Voice recognition error: ', event.error);
+                console.error("Voice recognition error:", event.error);
+            
+                let errorMessage;
+            
+                switch (event.error) {
+                    case "network":
+                        errorMessage = "Network error: Please check your internet connection. You may also try using a different browser";
+                        break;
+                    case "not-allowed":
+                        errorMessage = "Permission denied: Please allow access to your microphone.";
+                        break;
+                    case "service-not-allowed":
+                        errorMessage = "Service unavailable: The speech recognition service is not available.";
+                        break;
+                    case "language-not-supported":
+                        errorMessage = "Language not supported: Please select a supported language.";
+                        break;
+                    default:
+                        errorMessage = "An unknown error occurred: Please try again.";
+                        break;
+                }
+            
+                // Display a user-friendly message without including sensitive info
+                alert(errorMessage);
+                $("#voiceSearchButton").removeClass("active");
+                $("#voiceSearchButton").text("🎤");
             };
+            
 
             recognition.onend = function() {
                 console.log('Voice recognition ended.');
